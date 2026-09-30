@@ -1,30 +1,25 @@
 Package: gibsonsfuns
 Title: Stan functions for Gibson's
-Version: 20260715.1547
+Version: 20260930.1635
 Authors@R: 
     person("Yvan", "Richard", , "yvan@dragonfly.co.nz", role = c("aut", "cre"))
 Description: Stan functions compiled for R to run simulations of Gibson's
     albatross
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+        license
 Encoding: UTF-8
 Language: en
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 8.0.0
 Biarch: true
-Depends: 
-    R (>= 3.4.0)
-Imports: 
-    methods,
-    Rcpp (>= 0.12.0),
-    RcppParallel (>= 5.0.1),
-    rstan (>= 2.18.1),
-    rstantools (>= 2.6.0)
-LinkingTo: 
-    BH (>= 1.66.0),
-    Rcpp (>= 0.12.0),
-    RcppEigen (>= 0.3.3.3.0),
-    RcppParallel (>= 5.0.1),
-    rstan (>= 2.18.1),
-    StanHeaders (>= 2.18.0)
+Depends: R (>= 3.4.0)
+Imports: methods, Rcpp (>= 0.12.0), RcppParallel (>= 5.0.1), rstan (>=
+        2.18.1), rstantools (>= 2.6.0)
+LinkingTo: BH (>= 1.66.0), Rcpp (>= 0.12.0), RcppEigen (>= 0.3.3.3.0),
+        RcppParallel (>= 5.0.1), rstan (>= 2.18.1), StanHeaders (>=
+        2.18.0)
 SystemRequirements: GNU make
+NeedsCompilation: yes
+Packaged: 2026-09-30 03:37:26 UTC; root
+Author: Yvan Richard [aut, cre]
+Maintainer: Yvan Richard <yvan@dragonfly.co.nz>

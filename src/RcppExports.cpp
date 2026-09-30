@@ -55,6 +55,48 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// trans_probs
+Eigen::Matrix<stan::promote_args_t<double, double, double, double, double,                 stan::promote_args_t<double, double, double, double>>,-1,-1> trans_probs(const int& nstates, const double& s_ad, const double& s_ado, const double& s_juv, const double& p_mv_out, const double& p_mv_in, const int& succ, const std::vector<double>& p_breed, const double& p_rec, const double& p_bead, const double& p_succ, std::ostream* pstream__);
+RcppExport SEXP _gibsonsfuns_trans_probs(SEXP nstatesSEXP, SEXP s_adSEXP, SEXP s_adoSEXP, SEXP s_juvSEXP, SEXP p_mv_outSEXP, SEXP p_mv_inSEXP, SEXP succSEXP, SEXP p_breedSEXP, SEXP p_recSEXP, SEXP p_beadSEXP, SEXP p_succSEXP, SEXP pstream__SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const int& >::type nstates(nstatesSEXP);
+    Rcpp::traits::input_parameter< const double& >::type s_ad(s_adSEXP);
+    Rcpp::traits::input_parameter< const double& >::type s_ado(s_adoSEXP);
+    Rcpp::traits::input_parameter< const double& >::type s_juv(s_juvSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_mv_out(p_mv_outSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_mv_in(p_mv_inSEXP);
+    Rcpp::traits::input_parameter< const int& >::type succ(succSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type p_breed(p_breedSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_rec(p_recSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_bead(p_beadSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_succ(p_succSEXP);
+    Rcpp::traits::input_parameter< std::ostream* >::type pstream__(pstream__SEXP);
+    rcpp_result_gen = Rcpp::wrap(trans_probs(nstates, s_ad, s_ado, s_juv, p_mv_out, p_mv_in, succ, p_breed, p_rec, p_bead, p_succ, pstream__));
+    return rcpp_result_gen;
+END_RCPP
+}
+// obs_probs
+Eigen::Matrix<stan::promote_args_t<double, double, double, double, double>,-1,-1> obs_probs(const int& n_lat_states, const int& n_obs_states, const std::vector<double>& p_obs, const double& p_detect_juv, const double& p_detect_dead, const double& p_female, const double& p_succ, const int& succ, const int& no_visit, std::ostream* pstream__);
+RcppExport SEXP _gibsonsfuns_obs_probs(SEXP n_lat_statesSEXP, SEXP n_obs_statesSEXP, SEXP p_obsSEXP, SEXP p_detect_juvSEXP, SEXP p_detect_deadSEXP, SEXP p_femaleSEXP, SEXP p_succSEXP, SEXP succSEXP, SEXP no_visitSEXP, SEXP pstream__SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const int& >::type n_lat_states(n_lat_statesSEXP);
+    Rcpp::traits::input_parameter< const int& >::type n_obs_states(n_obs_statesSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type p_obs(p_obsSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_detect_juv(p_detect_juvSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_detect_dead(p_detect_deadSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_female(p_femaleSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_succ(p_succSEXP);
+    Rcpp::traits::input_parameter< const int& >::type succ(succSEXP);
+    Rcpp::traits::input_parameter< const int& >::type no_visit(no_visitSEXP);
+    Rcpp::traits::input_parameter< std::ostream* >::type pstream__(pstream__SEXP);
+    rcpp_result_gen = Rcpp::wrap(obs_probs(n_lat_states, n_obs_states, p_obs, p_detect_juv, p_detect_dead, p_female, p_succ, succ, no_visit, pstream__));
+    return rcpp_result_gen;
+END_RCPP
+}
 // states_one_indiv_rng
 std::vector<int> states_one_indiv_rng(const int& N_STATES_L, const int& N_STATES_O, const int& MAX_T, const std::vector<int>& NO_VISIT, const int& sex, const int& first_cap, const int& first_state, const int& agefirst, const std::vector<int>& c_hist, const std::vector<int>& isalive, const std::vector<int>& b_success, const std::vector<std::vector<double>>& s_ad, const std::vector<double>& s_ado, const std::vector<double>& s_juv, const std::vector<double>& p_moveout, const std::vector<double>& p_movein, const std::vector<std::vector<double>>& p_breeding, const double& age_rec_scale, const double& age_rec_inflection, const double& age_br_scale, const double& age_br_inflection, const std::vector<double>& p_success, const int& ind, const int& debug, boost::ecuyer1988& base_rng__, std::ostream* pstream__);
 RcppExport SEXP _gibsonsfuns_states_one_indiv_rng(SEXP N_STATES_LSEXP, SEXP N_STATES_OSEXP, SEXP MAX_TSEXP, SEXP NO_VISITSEXP, SEXP sexSEXP, SEXP first_capSEXP, SEXP first_stateSEXP, SEXP agefirstSEXP, SEXP c_histSEXP, SEXP isaliveSEXP, SEXP b_successSEXP, SEXP s_adSEXP, SEXP s_adoSEXP, SEXP s_juvSEXP, SEXP p_moveoutSEXP, SEXP p_moveinSEXP, SEXP p_breedingSEXP, SEXP age_rec_scaleSEXP, SEXP age_rec_inflectionSEXP, SEXP age_br_scaleSEXP, SEXP age_br_inflectionSEXP, SEXP p_successSEXP, SEXP indSEXP, SEXP debugSEXP, SEXP base_rng__SEXP, SEXP pstream__SEXP) {
@@ -454,10 +496,49 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// viterbi_path_one_indiv
+std::vector<int> viterbi_path_one_indiv(const int& N_STATES_L, const int& N_STATES_O, const int& sex, const std::vector<int>& age, const int& MAX_T, const int& first_cap, const int& last_cap, const std::vector<int>& c_hist, const std::vector<std::vector<double>>& s_ad, const std::vector<double>& s_ado, const std::vector<double>& s_juv, const std::vector<double>& p_moveout, const std::vector<double>& p_movein, const std::vector<int>& b_success, const std::vector<std::vector<double>>& p_breeding, const double& age_rec_inflection, const double& age_rec_scale, const double& age_br_inflection, const double& age_br_scale, const std::vector<double>& p_success, const std::vector<std::vector<double>>& p_obs, const double& p_detect_juv, const double& p_detect_dead, const double& p_female, const std::vector<int>& NO_VISIT, const int& first_state, std::ostream* pstream__);
+RcppExport SEXP _gibsonsfuns_viterbi_path_one_indiv(SEXP N_STATES_LSEXP, SEXP N_STATES_OSEXP, SEXP sexSEXP, SEXP ageSEXP, SEXP MAX_TSEXP, SEXP first_capSEXP, SEXP last_capSEXP, SEXP c_histSEXP, SEXP s_adSEXP, SEXP s_adoSEXP, SEXP s_juvSEXP, SEXP p_moveoutSEXP, SEXP p_moveinSEXP, SEXP b_successSEXP, SEXP p_breedingSEXP, SEXP age_rec_inflectionSEXP, SEXP age_rec_scaleSEXP, SEXP age_br_inflectionSEXP, SEXP age_br_scaleSEXP, SEXP p_successSEXP, SEXP p_obsSEXP, SEXP p_detect_juvSEXP, SEXP p_detect_deadSEXP, SEXP p_femaleSEXP, SEXP NO_VISITSEXP, SEXP first_stateSEXP, SEXP pstream__SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const int& >::type N_STATES_L(N_STATES_LSEXP);
+    Rcpp::traits::input_parameter< const int& >::type N_STATES_O(N_STATES_OSEXP);
+    Rcpp::traits::input_parameter< const int& >::type sex(sexSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type age(ageSEXP);
+    Rcpp::traits::input_parameter< const int& >::type MAX_T(MAX_TSEXP);
+    Rcpp::traits::input_parameter< const int& >::type first_cap(first_capSEXP);
+    Rcpp::traits::input_parameter< const int& >::type last_cap(last_capSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type c_hist(c_histSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::vector<double>>& >::type s_ad(s_adSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type s_ado(s_adoSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type s_juv(s_juvSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type p_moveout(p_moveoutSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type p_movein(p_moveinSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type b_success(b_successSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::vector<double>>& >::type p_breeding(p_breedingSEXP);
+    Rcpp::traits::input_parameter< const double& >::type age_rec_inflection(age_rec_inflectionSEXP);
+    Rcpp::traits::input_parameter< const double& >::type age_rec_scale(age_rec_scaleSEXP);
+    Rcpp::traits::input_parameter< const double& >::type age_br_inflection(age_br_inflectionSEXP);
+    Rcpp::traits::input_parameter< const double& >::type age_br_scale(age_br_scaleSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double>& >::type p_success(p_successSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::vector<double>>& >::type p_obs(p_obsSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_detect_juv(p_detect_juvSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_detect_dead(p_detect_deadSEXP);
+    Rcpp::traits::input_parameter< const double& >::type p_female(p_femaleSEXP);
+    Rcpp::traits::input_parameter< const std::vector<int>& >::type NO_VISIT(NO_VISITSEXP);
+    Rcpp::traits::input_parameter< const int& >::type first_state(first_stateSEXP);
+    Rcpp::traits::input_parameter< std::ostream* >::type pstream__(pstream__SEXP);
+    rcpp_result_gen = Rcpp::wrap(viterbi_path_one_indiv(N_STATES_L, N_STATES_O, sex, age, MAX_T, first_cap, last_cap, c_hist, s_ad, s_ado, s_juv, p_moveout, p_movein, b_success, p_breeding, age_rec_inflection, age_rec_scale, age_br_inflection, age_br_scale, p_success, p_obs, p_detect_juv, p_detect_dead, p_female, NO_VISIT, first_state, pstream__));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_gibsonsfuns_trans_probs1", (DL_FUNC) &_gibsonsfuns_trans_probs1, 13},
     {"_gibsonsfuns_obs_probs1", (DL_FUNC) &_gibsonsfuns_obs_probs1, 10},
+    {"_gibsonsfuns_trans_probs", (DL_FUNC) &_gibsonsfuns_trans_probs, 12},
+    {"_gibsonsfuns_obs_probs", (DL_FUNC) &_gibsonsfuns_obs_probs, 10},
     {"_gibsonsfuns_states_one_indiv_rng", (DL_FUNC) &_gibsonsfuns_states_one_indiv_rng, 26},
     {"_gibsonsfuns_states_multi_indivs_rng", (DL_FUNC) &_gibsonsfuns_states_multi_indivs_rng, 27},
     {"_gibsonsfuns_states_multi_indivs_mcmc_rng", (DL_FUNC) &_gibsonsfuns_states_multi_indivs_mcmc_rng, 28},
@@ -470,6 +551,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_gibsonsfuns_states_full_from_init2_rng", (DL_FUNC) &_gibsonsfuns_states_full_from_init2_rng, 22},
     {"_gibsonsfuns_states_full_from_init3_rng", (DL_FUNC) &_gibsonsfuns_states_full_from_init3_rng, 22},
     {"_gibsonsfuns_states_full_from_init4_rng", (DL_FUNC) &_gibsonsfuns_states_full_from_init4_rng, 22},
+    {"_gibsonsfuns_viterbi_path_one_indiv", (DL_FUNC) &_gibsonsfuns_viterbi_path_one_indiv, 27},
     {NULL, NULL, 0}
 };
 

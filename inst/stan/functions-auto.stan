@@ -413,6 +413,33 @@ functions{
   }
 
   
+  matrix trans_probs(int nstates, real s_ad, real s_ado, real s_juv,
+					 real p_mv_out, real p_mv_in, int succ, array[] real p_breed,
+					 real p_rec, real p_bead, real p_succ) {
+    
+    matrix[nstates, nstates] tmat;
+	for (i in 1:nstates) {
+	  tmat[i,] = trans_probs1(i, nstates, s_ad, s_ado, s_juv,
+							  p_mv_out, p_mv_in, succ, p_breed,
+							  p_rec, p_bead, p_succ)';
+	}
+	return tmat;
+  }
+
+  
+  matrix obs_probs(int n_lat_states, int n_obs_states, array[] real p_obs, real p_detect_juv, real p_detect_dead,
+				   real p_female, real p_succ, int succ, int no_visit) {
+
+    matrix[n_lat_states, n_obs_states] pmat;
+
+	for (i in 1:n_lat_states) {
+	  pmat[i,] = obs_probs1(i, n_obs_states, p_obs, p_detect_juv, p_detect_dead,
+							p_female, p_succ, succ, no_visit);
+	}
+    return pmat;
+  }
+
+
 
 
 
@@ -1371,5 +1398,89 @@ array[,] int states_full_from_init4_rng (int NROWS, int MAX_T, int NSAMPLES,
   return results[1:(startrow + popcounter - 1),];
 
 }
+
+array[] int viterbi_path_one_indiv (int N_STATES_L, int N_STATES_O, int sex, array[] int age, int MAX_T,
+				    int first_cap, int last_cap,
+array[] int c_hist, array[,] real s_ad, array[] real s_ado,
+                                      array[] real s_juv, array[] real p_moveout,
+                                      array[] real p_movein, array[] int b_success, array[,] real p_breeding,
+                                      real age_rec_inflection, real age_rec_scale, real age_br_inflection, real age_br_scale,
+                                      array[] real p_success, array[,] real p_obs,
+                                      real p_detect_juv, real p_detect_dead, real p_female, array[] int NO_VISIT,
+                                      int first_state) {
+
+    matrix[N_STATES_L, N_STATES_L] tmat;
+    matrix[N_STATES_L, N_STATES_O] pmat;
+    
+    // log_p tracks the max log-probability of reaching state j at time t
+    matrix[MAX_T, N_STATES_L] log_p = rep_matrix(negative_infinity(), MAX_T, N_STATES_L);
+    // back_ptr tracks which state at t-1 led to that max probability
+    array[MAX_T, N_STATES_L] int back_ptr;
+    // The final returned path
+    array[MAX_T] int best_path = rep_array(0, MAX_T);
+    
+    real p_rec;
+    real p_bead;
+
+    // 1. INITIALIZATION
+    log_p[first_cap, first_state] = 0.0;
+    best_path[first_cap] = first_state;
+
+    // 2. FORWARD PASS (Finding max probabilities)
+    if (last_cap > first_cap) {
+      for (t in (first_cap+1):last_cap) {
+        
+        p_rec = inv_logit(age_rec_scale * (age[t] - age_rec_inflection));
+        p_bead = inv_logit(age_br_scale * (age[t] - age_br_inflection));
+        
+        tmat = trans_probs(N_STATES_L, s_ad[sex+1, t-1], s_ado[t-1], s_juv[t-1],
+                           p_moveout[sex+1], p_movein[sex+1], b_success[t-1],
+                           p_breeding[,t], p_rec, p_bead, p_success[t-1]);
+                           
+        pmat = obs_probs(N_STATES_L, N_STATES_O, p_obs[t-1], p_detect_juv, p_detect_dead, p_female,
+                         p_success[t-1], b_success[t-1], NO_VISIT[t]);
+
+        for (j in 1:N_STATES_L) {
+          real best_logp = negative_infinity();
+          int best_i = 1;
+          
+          for (i in 1:N_STATES_L) {
+            // Calculate joint probability: p(state t-1) * p(transition) * p(observation)
+            real current_logp = log_p[t-1, i] + log(tmat[i, j] + 1e-15) + log(pmat[j, c_hist[t]] + 1e-15);
+            
+            if (current_logp > best_logp) {
+              best_logp = current_logp;
+              best_i = i; // Save the argmax
+            }
+          }
+          log_p[t, j] = best_logp;
+          back_ptr[t, j] = best_i;
+        }
+      }
+      
+      // 3. BACKWARD PASS (Tracing the best path via backpointers)
+      real max_final_logp = negative_infinity();
+      int final_best_state = 1;
+      
+      // Find the most likely state at the very last capture
+      for (j in 1:N_STATES_L) {
+        if (log_p[last_cap, j] > max_final_logp) {
+          max_final_logp = log_p[last_cap, j];
+          final_best_state = j;
+        }
+      }
+      best_path[last_cap] = final_best_state;
+      
+      // Trace backwards using the pointers
+      for (t in 1:(last_cap - first_cap - 1)) {
+        int rev_t = last_cap - t;
+        best_path[rev_t] = back_ptr[rev_t+1, best_path[rev_t+1]];
+      }
+    }
+
+    return best_path;
+  }
+
+
 
 }

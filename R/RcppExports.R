@@ -9,6 +9,14 @@ obs_probs1 <- function(latstate, n_obs_states, p_obs, p_detect_juv, p_detect_dea
     .Call(`_gibsonsfuns_obs_probs1`, latstate, n_obs_states, p_obs, p_detect_juv, p_detect_dead, p_female, p_succ, succ, no_visit, pstream__)
 }
 
+trans_probs <- function(nstates, s_ad, s_ado, s_juv, p_mv_out, p_mv_in, succ, p_breed, p_rec, p_bead, p_succ, pstream__ = 0L) {
+    .Call(`_gibsonsfuns_trans_probs`, nstates, s_ad, s_ado, s_juv, p_mv_out, p_mv_in, succ, p_breed, p_rec, p_bead, p_succ, pstream__)
+}
+
+obs_probs <- function(n_lat_states, n_obs_states, p_obs, p_detect_juv, p_detect_dead, p_female, p_succ, succ, no_visit, pstream__ = 0L) {
+    .Call(`_gibsonsfuns_obs_probs`, n_lat_states, n_obs_states, p_obs, p_detect_juv, p_detect_dead, p_female, p_succ, succ, no_visit, pstream__)
+}
+
 states_one_indiv_rng <- function(N_STATES_L, N_STATES_O, MAX_T, NO_VISIT, sex, first_cap, first_state, agefirst, c_hist, isalive, b_success, s_ad, s_ado, s_juv, p_moveout, p_movein, p_breeding, age_rec_scale, age_rec_inflection, age_br_scale, age_br_inflection, p_success, ind, debug, base_rng__, pstream__ = 0L) {
     .Call(`_gibsonsfuns_states_one_indiv_rng`, N_STATES_L, N_STATES_O, MAX_T, NO_VISIT, sex, first_cap, first_state, agefirst, c_hist, isalive, b_success, s_ad, s_ado, s_juv, p_moveout, p_movein, p_breeding, age_rec_scale, age_rec_inflection, age_br_scale, age_br_inflection, p_success, ind, debug, base_rng__, pstream__)
 }
@@ -55,5 +63,9 @@ states_full_from_init3_rng <- function(NROWS, MAX_T, NSAMPLES, FIRST_STATE, SEX,
 
 states_full_from_init4_rng <- function(NROWS, MAX_T, NSAMPLES, FIRST_STATE, SEX, FIRST_AGE, NINDS, s_ad, s_ado, s_juv, p_breeding, age_rec_scale, age_rec_inflection, age_br_scale, age_br_inflection, p_success, p_female, N_STATES_L, BUFFEREDROWS, debug, base_rng__, pstream__ = 0L) {
     .Call(`_gibsonsfuns_states_full_from_init4_rng`, NROWS, MAX_T, NSAMPLES, FIRST_STATE, SEX, FIRST_AGE, NINDS, s_ad, s_ado, s_juv, p_breeding, age_rec_scale, age_rec_inflection, age_br_scale, age_br_inflection, p_success, p_female, N_STATES_L, BUFFEREDROWS, debug, base_rng__, pstream__)
+}
+
+viterbi_path_one_indiv <- function(N_STATES_L, N_STATES_O, sex, age, MAX_T, first_cap, last_cap, c_hist, s_ad, s_ado, s_juv, p_moveout, p_movein, b_success, p_breeding, age_rec_inflection, age_rec_scale, age_br_inflection, age_br_scale, p_success, p_obs, p_detect_juv, p_detect_dead, p_female, NO_VISIT, first_state, pstream__ = 0L) {
+    .Call(`_gibsonsfuns_viterbi_path_one_indiv`, N_STATES_L, N_STATES_O, sex, age, MAX_T, first_cap, last_cap, c_hist, s_ad, s_ado, s_juv, p_moveout, p_movein, b_success, p_breeding, age_rec_inflection, age_rec_scale, age_br_inflection, age_br_scale, p_success, p_obs, p_detect_juv, p_detect_dead, p_female, NO_VISIT, first_state, pstream__)
 }
 
